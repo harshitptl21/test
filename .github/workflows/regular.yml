@@ -17,12 +17,12 @@ jobs:
     - name: Run command and save output
       run: |
         # Create a results directory with today's date
-        results_dir="results/$(date +'%Y-%m-%d')"
+        results_dir="results/"
         mkdir -p "$results_dir"
 
         # Run your command and save the output
         # Replace `your_command` with the actual command you want to run
-        date > "$results_dir/output.txt"
+        date > "$results_dir/$(date +'%Y-%m-%d').txt"
       
     # Step 3: Commit and push results
     - name: Commit and push results
