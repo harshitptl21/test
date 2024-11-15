@@ -2,7 +2,7 @@ name: Nightly Command Run
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # Runs every day at 12:00 AM UTC
+    - cron: "*/5 * * * *" # Runs every day at 12:00 AM UTC
 
 jobs:
   run-and-save-results:
