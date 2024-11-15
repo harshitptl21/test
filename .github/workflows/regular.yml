@@ -1,0 +1,42 @@
+name: Nightly Command Run
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Runs every day at 12:00 AM UTC
+
+jobs:
+  run-and-save-results:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Check out the repository
+      uses: actions/checkout@v3
+
+    # Step 2: Run the command and store output
+    - name: Run command and save output
+      run: |
+        # Create a results directory with today's date
+        results_dir="results/$(date +'%Y-%m-%d')"
+        mkdir -p "$results_dir"
+
+        # Run your command and save the output
+        # Replace `your_command` with the actual command you want to run
+        date > "$results_dir/output.txt"
+      
+    # Step 3: Commit and push results
+    - name: Commit and push results
+      run: |
+        # Configure git
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+        # Add the new results and commit
+        git add results/
+        git commit -m "Add nightly results for $(date +'%Y-%m-%d')"
+        
+        # Push changes
+        git push
+      env:
+        # Set the GITHUB_TOKEN so the action can push changes to the repo
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
