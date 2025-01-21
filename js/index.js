@@ -21,11 +21,13 @@ require(['components/map-route', 'components/input/date-picker', 'components/inp
 
       var _this = this;
       this.mapOptions = {
-        center: new google.maps.LatLng(51.517099, -0.146084),
-        zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        center: [26.489000, 80.300000],
+        zoom: 13
       };
-      this.map = new google.maps.Map($('#map_canvas')[0], this.mapOptions);
+      this.map = L.map('map_canvas', this.mapOptions);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(this.map);
       this.womenOnly = $('#search-women-only');
       this.departure = new DatePicker($('#search-departure'), $('#search-departure-date'), false);
       this.route = new MapRoute($('#search-route'), this.map, $('#search-from'), $('#search-to'));
