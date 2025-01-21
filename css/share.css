@@ -30,3 +30,21 @@ body > .container-fluid > .row-fluid {
     min-width: 300px;
     min-height: 555px;
 }
+
+.search-results {
+    position: absolute;
+    z-index: 1000;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .search-result {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .search-result:hover {
+    background: #f0f0f0;
+  }
