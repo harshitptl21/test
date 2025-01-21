@@ -20,6 +20,7 @@ function share_post() {
     $trip_data = array(
         'driver_id' => $driver_id,
         'spots' => $data['spots'],
+        'spots_taken' => 0,
         'length' => $data['route']['trip_length'],
         'message' => $data['message'],
         'women_only' => $data['women_only'],
