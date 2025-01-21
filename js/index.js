@@ -175,55 +175,67 @@ require(['components/map-route', 'components/input/date-picker', 'components/inp
     return Trip;
 
   })();
+
   RouteRenderer = (function() {
 
     function RouteRenderer(map, route) {
-      var request,
-        _this = this;
       this.map = map;
       this.route = route;
+      this.hoverIn = __bind(this.hoverIn, this);
       this.hoverOut = __bind(this.hoverOut, this);
 
-      this.hoverIn = __bind(this.hoverIn, this);
-
-      this.mapRendererOptions = {
-        markerOptions: {
-          visible: false
-        },
-        polylineOptions: {
-          strokeOpacity: 0.0,
-          strokeWeight: 4
-        }
-      };
-      this.directionsDisplay = new google.maps.DirectionsRenderer(this.mapRendererOptions);
-      this.directionsDisplay.setMap(this.map);
-      request = {
-        origin: this.route['origin']['address'],
-        destination: this.route['destination']['address'],
-        travelMode: google.maps.TravelMode.DRIVING,
-        region: 'uk'
-      };
-      this.directionsService = new google.maps.DirectionsService();
-      this.directionsService.route(request, function(result, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-          return _this.directionsDisplay.setDirections(result);
+      // Initialize route layer
+      this.routeLayer = L.layerGroup().addTo(this.map);
+      
+      // Initialize routing control
+      this.routingControl = L.Routing.control({
+        router: L.Routing.osrmv1({
+          serviceUrl: 'https://router.project-osrm.org/route/v1',
+          profile: 'driving'
+        }),
+        waypoints: [
+          L.latLng(this.route.origin.lat, this.route.origin.lon),
+          L.latLng(this.route.destination.lat, this.route.destination.lon)
+        ],
+        fitSelectedRoutes: false,
+        show: false,
+        lineOptions: {
+          styles: [
+            {color: '#3388ff', opacity: 0.0, weight: 6},
+            {color: '#ffffff', opacity: 0.0, weight: 4}
+          ]
         }
       });
+
+      this.routingControl.addTo(this.map);
     }
 
     RouteRenderer.prototype.hoverIn = function(e) {
-      this.mapRendererOptions.polylineOptions.strokeOpacity = 0.8;
-      return this.directionsDisplay.setMap(this.map);
+      if (this.routingControl) {
+        this.routingControl.setStyle({
+          styles: [
+            {color: '#3388ff', opacity: 0.8, weight: 6},
+            {color: '#ffffff', opacity: 0.3, weight: 4}
+          ]
+        });
+      }
     };
 
     RouteRenderer.prototype.hoverOut = function(e) {
-      this.mapRendererOptions.polylineOptions.strokeOpacity = 0.0;
-      return this.directionsDisplay.setMap(this.map);
+      if (this.routingControl) {
+        this.routingControl.setStyle({
+          styles: [
+            {color: '#3388ff', opacity: 0.0, weight: 6},
+            {color: '#ffffff', opacity: 0.0, weight: 4}
+          ]
+        });
+      }
     };
 
     return RouteRenderer;
 
   })();
+
   RequestRideModal = (function() {
 
     function RequestRideModal() {
