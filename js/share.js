@@ -12,11 +12,13 @@ require(['components/map-route', 'components/input/date-time', 'components/input
 
       var _this = this;
       this.mapOptions = {
-        center: new google.maps.LatLng(51.517099, -0.146084),
-        zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        center: [26.489000, 80.300000],
+        zoom: 13
       };
-      this.map = new google.maps.Map($('#map_canvas')[0], this.mapOptions);
+      this.map = L.map('map_canvas', this.mapOptions);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(this.map);
       this.departure = new DateTime($('#share-departure'), $('#share-departure-date'), $('#share-departure-time'));
       this.route = new MapRoute($('#share-route'), this.map, $('#share-from'), $('#share-to'), $('#share-trip-length'));
       this.message = $('#share-message');
