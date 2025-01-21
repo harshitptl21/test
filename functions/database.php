@@ -65,6 +65,7 @@ function add_trip($data)
     global $connection;
     $driver_id = functions\sanitize_string($data['driver_id']);
     $spots = functions\sanitize_string($data['spots']);
+    $spots_taken = functions\sanitize_string($data['spots_taken']);
     $length = functions\sanitize_string($data['length']);
     $message = functions\sanitize_string($data['message']);
     $women_only = functions\sanitize_string($data['women_only']);
@@ -75,6 +76,7 @@ function add_trip($data)
     $query = "INSERT INTO ".TRIP_TABLE." (
             driver_id,
             spots,
+            spots_taken,
             length,
             message,
             women_only,
@@ -84,6 +86,7 @@ function add_trip($data)
         ) VALUES (
             '$driver_id',
             '$spots',
+            '$spots_taken',
             '$length',
             '$message',
             '$women_only',
@@ -95,7 +98,7 @@ function add_trip($data)
         echo "Failed to add place: " . mysqli_error();
         return NULL;
     }
-    return mysqli_insert_id();
+    return mysqli_insert_id($connection);
 }
 
 /**
@@ -169,7 +172,7 @@ function add_place($data)
         echo "Failed to add place: " . mysqli_error();
         return NULL;
     }
-    return mysqli_insert_id();
+    return mysqli_insert_id($connection);
 }
 
 /**
