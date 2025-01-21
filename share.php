@@ -96,7 +96,17 @@
   </div>
 <hr>
 <!-- Load JS in the end for faster page loading -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+
+<!-- JavaScript Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
 <script data-main="/js/share" src="/js/require.js"></script>
 <?php else: ?>
   <div class="well ds-component ds-hover container-narrow" data-componentid="well1">
