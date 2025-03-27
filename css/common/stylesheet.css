@@ -1,0 +1,85 @@
+/*!
+ * Ride With Us
+ * Custom Stylesheet
+ */
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+body .container-fluid {
+    margin-top: 20px;
+}
+
+body .container-narrow {
+    margin-top: 20px;
+}
+
+.container-narrow {
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.loader {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .container-narrow {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    .sidebar-nav {
+        padding: 5px 0;
+    }
+
+    body .container-fluid {
+        margin-top: 10px;
+    }
+
+    body .container-narrow {
+        margin-top: 10px;
+    }
+
+    footer {
+        margin-top: 15px;
+        padding: 0 15px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .container-narrow {
+        max-width: 90%;
+    }
+
+    body .container-fluid {
+        margin-top: 15px;
+    }
+
+    body .container-narrow {
+        margin-top: 15px;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .container-narrow {
+        max-width: 700px;
+    }
+
+    body .container-fluid {
+        margin-top: 20px;
+    }
+
+    body .container-narrow {
+        margin-top: 20px;
+    }
+}
