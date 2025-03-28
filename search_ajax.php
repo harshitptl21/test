@@ -20,7 +20,12 @@ function search_get($data)
     if ($trips == NULL)
         $trips = array();
 
-    if ($user && $user['gender'] == 0) {
+    if ($user['gender'] == 0 && $data['women_only']) {
+        // If the user is female and requested women_only, return trips where 'women_only' is 1
+        $filtered_trips = array_filter($trips, function($trip) {
+            return $trip['women_only'] == 1;
+        });
+    } elseif ($user['gender'] == 0) {
         // If the user is female, return all trips
         $filtered_trips = $trips;
     } else {
