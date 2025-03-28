@@ -20,33 +20,14 @@ function search_get($data)
     if ($trips == NULL)
         $trips = array();
 
-    // Filter trips based on gender and women-only search
-    $filtered_trips = array();
-    foreach ($trips as $trip) {
-        // Skip if user is the driver
-        if ($user_id && $trip['driver']['id'] == $user_id) {
-            continue;
-        }
-
-        // Handle women-only filtering
-        if (isset($data['women_only']) && $data['women_only']) {
-            // If women-only is checked, only show women-only trips
-            if ($trip['women_only'] == 1) {
-                $filtered_trips[] = $trip;
-            }
-        } else {
-            // If women-only is not checked, apply gender-based filtering
-            if ($user_id) {
-                $user = user\get_user($user_id);
-                if ($user && $user['gender'] == 0) {  // If female
-                    $filtered_trips[] = $trip;  // Show all trips
-                } else if ($trip['women_only'] == 0) {  // If male, only show non-women-only trips
-                    $filtered_trips[] = $trip;
-                }
-            } else if ($trip['women_only'] == 0) {  // Non-logged in users only see non-women-only trips
-                $filtered_trips[] = $trip;
-            }
-        }
+    if ($user && $user['gender'] == 0) {
+        // If the user is female, return all trips
+        $filtered_trips = $trips;
+    } else {
+        // If the user is not female, return trips where 'women_only' is not 1
+        $filtered_trips = array_filter($trips, function($trip) {
+            return $trip['women_only'] != 1;
+        });
     }
 
     $trips_found = array("trips" => $filtered_trips);
